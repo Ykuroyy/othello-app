@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>♡ オセロゲーム ♡</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>♡ オセロゲーム ♡</h1>
+        </header>
+        
+        <div class="game-info">
+            <div class="score-board">
+                <div class="score black-score">
+                    <span class="stone">⚫</span>
+                    <span class="label">黒</span>
+                    <span class="count" id="black-count">2</span>
+                </div>
+                <div class="score white-score">
+                    <span class="stone">⚪</span>
+                    <span class="label">白</span>
+                    <span class="count" id="white-count">2</span>
+                </div>
+            </div>
+            
+            <div class="current-player" id="current-player">
+                <span class="stone">⚫</span>
+                <span>黒の番です</span>
+            </div>
+            
+            <div class="valid-moves" id="valid-moves">
+                置ける場所: <span id="moves-count">4</span>個
+            </div>
+        </div>
+        
+        <div class="game-board" id="game-board">
+            <!-- ボードはJavaScriptで生成 -->
+        </div>
+        
+        <div class="game-result" id="game-result" style="display: none;">
+            <div class="result-text" id="result-text"></div>
+            <button class="restart-btn" onclick="restartGame()">もう一度遊ぶ</button>
+        </div>
+        
+        <div class="instructions">
+            <h3>🎮 遊び方</h3>
+            <ul>
+                <li>相手の石を挟むように石を置きます</li>
+                <li>挟まれた石は自分の色に変わります</li>
+                <li>石の数が多い方が勝ちです！</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
