@@ -76,6 +76,13 @@ h1 {
     background: linear-gradient(45deg, #ffb6c1, #ffc0cb);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.current-player.pass {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    color: white;
+    animation: pulse 1s infinite;
 }
 
 .valid-moves {
@@ -157,21 +164,47 @@ h1 {
     text-align: center;
     margin: 20px 0;
     padding: 20px;
-    background: linear-gradient(45deg, #ffd700, #ffed4e);
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 .result-text {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #333;
     margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    animation: celebrate 0.5s ease-out;
 }
 
-.restart-btn {
-    background: linear-gradient(45deg, #ff69b4, #ff1493);
+.result-text.black-win {
+    background: linear-gradient(45deg, #000, #333);
     color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.result-text.white-win {
+    background: linear-gradient(45deg, #fff, #f0f0f0);
+    color: #333;
+    border: 2px solid #ccc;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.result-text.draw {
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.result-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.restart-btn, .new-game-btn {
     border: none;
     padding: 12px 25px;
     border-radius: 25px;
@@ -182,7 +215,17 @@ h1 {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.restart-btn:hover {
+.restart-btn {
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    color: white;
+}
+
+.new-game-btn {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.restart-btn:hover, .new-game-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }

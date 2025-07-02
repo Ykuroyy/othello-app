@@ -166,8 +166,9 @@ class OthelloGame {
 
     // ゲーム終了チェック
     checkGameOver() {
+        // 現在のプレイヤーが置けない場合
         if (this.validMoves.length === 0) {
-            // 現在のプレイヤーが置けない場合、相手の番をチェック
+            // 相手の番をチェック
             const tempPlayer = this.currentPlayer;
             this.currentPlayer = 3 - this.currentPlayer;
             this.updateValidMoves();
@@ -176,8 +177,19 @@ class OthelloGame {
             this.updateValidMoves();
             
             if (!opponentHasMoves) {
+                // 両者とも置けない場合はゲーム終了
                 this.gameOver = true;
+            } else {
+                // 相手に手がある場合はパス
+                this.currentPlayer = 3 - this.currentPlayer;
+                this.updateValidMoves();
             }
+        }
+        
+        // ボードが埋まった場合もゲーム終了
+        const totalStones = this.getScore().black + this.getScore().white;
+        if (totalStones === 64) {
+            this.gameOver = true;
         }
     }
 
@@ -251,6 +263,15 @@ function handleCellClick(row, col) {
         updateUI();
         renderBoard();
     }
+    
+    // 手動でゲーム終了チェック（念のため）
+    if (game.validMoves.length === 0) {
+        game.checkGameOver();
+        if (game.gameOver) {
+            updateUI();
+            showGameResult();
+        }
+    }
 }
 
 // UI更新
@@ -274,6 +295,14 @@ function updateUI() {
     // 有効な手の数
     movesCount.textContent = game.validMoves.length;
     
+    // パス表示
+    if (game.validMoves.length === 0 && !game.gameOver) {
+        currentPlayerElement.textContent = 'パスです';
+        currentPlayer.classList.add('pass');
+    } else {
+        currentPlayer.classList.remove('pass');
+    }
+    
     // ゲーム終了時の処理
     if (game.gameOver) {
         showGameResult();
@@ -284,22 +313,35 @@ function updateUI() {
 function showGameResult() {
     const score = game.getScore();
     let result;
+    let resultClass = '';
     
     if (score.black > score.white) {
         result = `⚫ 黒の勝ち！ (${score.black} - ${score.white})`;
+        resultClass = 'black-win';
     } else if (score.white > score.black) {
         result = `⚪ 白の勝ち！ (${score.white} - ${score.black})`;
+        resultClass = 'white-win';
     } else {
-        result = `引き分け！ (${score.black} - ${score.white})`;
+        result = `🤝 引き分け！ (${score.black} - ${score.white})`;
+        resultClass = 'draw';
     }
     
     resultText.textContent = result;
+    resultText.className = `result-text ${resultClass}`;
     gameResult.style.display = 'block';
 }
 
 // ゲームリスタート
 function restartGame() {
     game.reset();
+    gameResult.style.display = 'none';
+    updateUI();
+    renderBoard();
+}
+
+// 新しいゲーム開始
+function newGame() {
+    game = new OthelloGame();
     gameResult.style.display = 'none';
     updateUI();
     renderBoard();
